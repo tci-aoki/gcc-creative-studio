@@ -130,14 +130,16 @@ export class AuthService {
       return from(currentUser.getIdToken(true)).pipe(
         tap((token: string) => {
           // Update the in-memory cache and localStorage with the refreshed token info.
-          const payload = JSON.parse(atob(token.split('.')[1]));
-          const expiry = payload.exp * 1000;
+          const payload = this.decodeJWTPayload(token);
+          if (payload) {
+            const expiry = payload.exp * 1000;
 
-          this.firebaseIdToken = token;
-          this.firebaseTokenExpiry = expiry;
+            this.firebaseIdToken = token;
+            this.firebaseTokenExpiry = expiry;
 
-          const session: FirebaseSession = {token, expiry};
-          localStorage.setItem(FIREBASE_SESSION_KEY, JSON.stringify(session));
+            const session: FirebaseSession = {token, expiry};
+            localStorage.setItem(FIREBASE_SESSION_KEY, JSON.stringify(session));
+          }
         }),
       );
     }
@@ -156,12 +158,12 @@ export class AuthService {
   signInForGoogleIdentityPlatform(): Observable<string> {
     return this.promptForIdentityPlatformToken$().pipe(
       switchMap(idToken => {
-        const payload = JSON.parse(atob(idToken.split('.')[1]));
-        const userEmail = payload.email?.toLowerCase();
+        const payload = this.decodeJWTPayload(idToken);
+        const userEmail = payload?.email?.toLowerCase();
 
         // If allowed, proceed to save session and return token
         this.firebaseIdToken = idToken;
-        this.firebaseTokenExpiry = payload.exp * 1000;
+        this.firebaseTokenExpiry = payload?.exp ? payload.exp * 1000 : 0;
 
         const session: FirebaseSession = {
           token: idToken,
@@ -374,5 +376,36 @@ export class AuthService {
     // refresh requires re-authentication or more complex flows not covered here.
     // For a simple deploy button click, getting a fresh token on sign-in might suffice.
     return this.currentOAuthAccessToken;
+  }
+
+  /**
+   * Robustly decodes a JWT payload, handling Base64URL and Unicode characters.
+   */
+  private decodeJWTPayload(token: string): any {
+    try {
+      const base64Url = token.split('.')[1];
+      if (!base64Url) return null;
+
+      // Base64URL uses - instead of + and _ instead of /
+      let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+
+      // Add padding if necessary
+      while (base64.length % 4) {
+        base64 += '=';
+      }
+
+      // Decode and handle Unicode characters
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join(''),
+      );
+
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error('Error decoding JWT payload:', error);
+      return null;
+    }
   }
 }
