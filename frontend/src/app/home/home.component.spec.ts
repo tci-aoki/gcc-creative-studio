@@ -53,7 +53,7 @@ describe('HomeComponent', () => {
     prompt: '',
     negativePrompt: '',
     aspectRatio: '1:1',
-    model: 'gemini-3-pro-image-preview',
+    model: 'gemini-3.1-pro-preview',
     lighting: null,
     watermark: false,
     googleSearch: false,

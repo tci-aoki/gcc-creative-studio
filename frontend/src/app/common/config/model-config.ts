@@ -209,8 +209,8 @@ export const MODEL_CONFIGS: GenerationModelConfig[] = [
     },
   },
   {
-    value: 'gemini-3-pro-preview',
-    viewValue: 'Gemini 3 Pro Preview',
+    value: 'gemini-3.1-pro-preview',
+    viewValue: 'Gemini 3.1 Pro (Preview)',
     type: 'TEXT',
     icon: 'gemini-spark-icon',
     isSvg: true,
@@ -222,7 +222,19 @@ export const MODEL_CONFIGS: GenerationModelConfig[] = [
   },
   {
     value: 'gemini-3-flash-preview',
-    viewValue: 'Gemini 3 Flash Preview',
+    viewValue: 'Gemini 3 Flash (Preview)',
+    type: 'TEXT',
+    icon: 'gemini-spark-icon',
+    isSvg: true,
+    capabilities: {
+      supportedModes: ['Multimodal to text'],
+      maxReferenceImages: 10,
+      supportedAspectRatios: [],
+    },
+  },
+  {
+    value: 'gemini-3.1-flash-lite',
+    viewValue: 'Gemini 3.1 Flash-Lite',
     type: 'TEXT',
     icon: 'gemini-spark-icon',
     isSvg: true,

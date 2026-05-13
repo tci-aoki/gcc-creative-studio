@@ -54,7 +54,7 @@ export const GENERATE_TEXT_STEP_CONFIG: StepConfig = {
       label: 'Model',
       type: 'select',
       options: model_options,
-      defaultValue: 'gemini-3-flash-preview',
+      defaultValue: 'gemini-3.1-pro-preview',
     },
     {
       name: 'temperature',
