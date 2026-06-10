@@ -158,7 +158,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
       {value: '9:16', viewValue: '9:16 \n Vertical', disabled: false},
     ];
   selectedAspectRatio = this.aspectRatioOptions[0].viewValue;
-  resolutions = ['720p', '1080p'];
+  resolutions: ('720p' | '1080p')[] = ['720p', '1080p'];
   videoStyles = [
     'Cinematic',
     'Fantasy',
