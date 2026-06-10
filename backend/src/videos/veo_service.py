@@ -326,6 +326,7 @@ def _process_video_in_background(
                                     number_of_videos=request_dto.number_of_media,
                                     output_gcs_uri=gcs_output_directory,
                                     aspect_ratio=request_dto.aspect_ratio,
+                                    resolution=request_dto.resolution.value,
                                     negative_prompt=request_dto.negative_prompt,
                                     generate_audio=request_dto.generate_audio,
                                     # TODO: Pass from dto the secs if extending video (4, 5, 6, 7)
@@ -826,7 +827,7 @@ class VeoService:
             user_email=user.email,
             user_id=user.id,
             mime_type=MimeTypeEnum.VIDEO_MP4,
-            model=GenerationModelEnum.VEO_3_QUALITY,  # Or a specific concat model if exists
+            model=GenerationModelEnum.VEO_3_1_GENERATE_001,  # Or a specific concat model if exists
             original_prompt=request_dto.name,  # Use name as prompt
             status=JobStatusEnum.PROCESSING,
             source_media_items=source_media_items,

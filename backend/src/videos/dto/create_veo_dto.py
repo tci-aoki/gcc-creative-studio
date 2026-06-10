@@ -26,6 +26,7 @@ from src.common.base_dto import (
     GenerationModelEnum,
     LightingEnum,
     ReferenceImageTypeEnum,
+    ResolutionEnum,
     StyleEnum,
 )
 from src.common.schema.media_item_model import (
@@ -58,6 +59,10 @@ class CreateVeoDto(BaseDto):
     generation_model: GenerationModelEnum = Field(
         default=GenerationModelEnum.VEO_3_1_GENERATE_001,
         description="Model used for image generation.",
+    )
+    resolution: ResolutionEnum = Field(
+        default=ResolutionEnum.RESOLUTION_720P,
+        description="Resolution of the generated video.",
     )
     aspect_ratio: AspectRatioEnum = Field(
         default=AspectRatioEnum.RATIO_16_9,
@@ -166,15 +171,12 @@ class CreateVeoDto(BaseDto):
 
         if has_any_references:
             if (
-                model != GenerationModelEnum.VEO_2_GENERATE_EXP
-                and model != GenerationModelEnum.VEO_3_1_PREVIEW
-                and model != GenerationModelEnum.VEO_3_1_GENERATE_001
+                model != GenerationModelEnum.VEO_3_1_GENERATE_001
                 and model != GenerationModelEnum.VEO_3_1_LITE_GENERATE_001
                 and model != GenerationModelEnum.VEO_3_1_FAST_GENERATE_001
             ):
                 raise ValueError(
                     "Reference images are only supported by the "
-                    f"'{GenerationModelEnum.VEO_3_1_PREVIEW.value}' model, "
                     f"'{GenerationModelEnum.VEO_3_1_GENERATE_001.value}' model, "
                     f"'{GenerationModelEnum.VEO_3_1_LITE_GENERATE_001.value}' model, or "
                     f"'{GenerationModelEnum.VEO_3_1_FAST_GENERATE_001.value}' model.",
@@ -217,19 +219,11 @@ class CreateVeoDto(BaseDto):
         value: GenerationModelEnum,
     ) -> GenerationModelEnum:
         """Ensures that only supported generation models for video are used."""
-        valid_video_ratios = [
-            GenerationModelEnum.VEO_3_1_PREVIEW,
+        valid_video_models = [
             GenerationModelEnum.VEO_3_1_GENERATE_001,
             GenerationModelEnum.VEO_3_1_LITE_GENERATE_001,
             GenerationModelEnum.VEO_3_1_FAST_GENERATE_001,
-            GenerationModelEnum.VEO_3_FAST,
-            GenerationModelEnum.VEO_3_QUALITY,
-            GenerationModelEnum.VEO_3_FAST_PREVIEW,
-            GenerationModelEnum.VEO_3_QUALITY_PREVIEW,
-            GenerationModelEnum.VEO_2_FAST,
-            GenerationModelEnum.VEO_2_QUALITY,
-            GenerationModelEnum.VEO_2_GENERATE_EXP,
         ]
-        if value not in valid_video_ratios:
+        if value not in valid_video_models:
             raise ValueError("Invalid generation model for video.")
         return value

@@ -41,6 +41,13 @@ class WildcardMimeTypeEnum(str, Enum):
     AUDIO_WILDCARD = "audio/*"
 
 
+class ResolutionEnum(str, Enum):
+    """Resolution of the video."""
+
+    RESOLUTION_720P = "720p"
+    RESOLUTION_1080P = "1080p"
+
+
 class GenerationModelEnum(str, Enum):
     """Enum representing the available generation models."""
 
@@ -73,14 +80,6 @@ class GenerationModelEnum(str, Enum):
     VEO_3_1_FAST_GENERATE_001 = "veo-3.1-fast-generate-001"
     VEO_3_1_LITE_GENERATE_001 = "veo-3.1-lite-generate-001"
     VEO_3_1_GENERATE_001 = "veo-3.1-generate-001"
-    VEO_3_1_PREVIEW = "veo-3.1-generate-preview"
-    VEO_3_FAST = "veo-3.0-fast-generate-001"
-    VEO_3_QUALITY = "veo-3.0-generate-001"
-    VEO_3_FAST_PREVIEW = "veo-3.0-fast-generate-preview"
-    VEO_3_QUALITY_PREVIEW = "veo-3.0-generate-preview"
-    VEO_2_FAST = "veo-2.0-generate-001"
-    VEO_2_QUALITY = "veo-2.0-fast-generate-001"
-    VEO_2_GENERATE_EXP = "veo-2.0-generate-exp"
 
     # Audio-Specific Models
     LYRIA_002 = "lyria-002"
