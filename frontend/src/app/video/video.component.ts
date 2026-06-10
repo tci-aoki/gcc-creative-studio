@@ -141,6 +141,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
     useBrandGuidelines: false,
     enhancePrompt: false,
     referenceImages: [],
+    resolution: '720p',
   };
 
   // --- Negative Prompt Chips ---
@@ -157,6 +158,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
       {value: '9:16', viewValue: '9:16 \n Vertical', disabled: false},
     ];
   selectedAspectRatio = this.aspectRatioOptions[0].viewValue;
+  resolutions = ['720p', '1080p'];
   videoStyles = [
     'Cinematic',
     'Fantasy',
@@ -404,6 +406,10 @@ export class VideoComponent implements OnInit, AfterViewInit {
       this.selectedAspectRatio = ratio.viewValue;
     }
     this.saveState();
+  }
+
+  selectResolution(res: '720p' | '1080p'): void {
+    this.searchRequest.resolution = res;
   }
 
   selectVideoStyle(style: string): void {

@@ -115,6 +115,32 @@
     >
 
       <div
+        matTooltip="Select Resolution"
+        class="cursor-pointer w-24 inline-flex flex-col justify-start items-center"
+      >
+        <button
+          mat-fab
+          [matMenuTriggerFor]="resolutionMenu"
+          class="!w-16 !h-16 !shadow-none text-center justify-center text-stone-300 text-2xl"
+        >
+          <mat-icon>hd</mat-icon>
+        </button>
+        <div class="text-center justify-center text-neutral-200 text-base mt-2">
+          {{ searchRequest.resolution ? searchRequest.resolution : '720p' }}
+        </div>
+        <mat-menu #resolutionMenu="matMenu">
+          <button
+            *ngFor="let res of resolutions"
+            mat-menu-item
+            [ngClass]="{'menu-item-selected': searchRequest.resolution === res}"
+            (click)="selectResolution(res)"
+          >
+            <span>{{ res }}</span>
+          </button>
+        </mat-menu>
+      </div>
+
+      <div
         matTooltip="Select Style"
         class="cursor-pointer w-24 inline-flex flex-col justify-start items-center"
       >

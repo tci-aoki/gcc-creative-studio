@@ -73,6 +73,7 @@ export type VeoRequest = {
   useBrandGuidelines: boolean;
   enhancePrompt?: boolean;
   referenceImages?: ReferenceImageDto[];
+  resolution?: '720p' | '1080p';
 };
 
 export type SearchResponse = {
