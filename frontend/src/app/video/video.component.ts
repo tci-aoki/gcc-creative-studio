@@ -196,7 +196,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
     'Warm',
   ];
   numberOfVideosOptions = [1, 2, 3, 4];
-  durationOptions = [8];
+  durationOptions = [4, 6, 8];
   compositions = [
     'Closeup',
     'Knolling',
