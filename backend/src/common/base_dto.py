@@ -46,6 +46,7 @@ class ResolutionEnum(str, Enum):
 
     RESOLUTION_720P = "720p"
     RESOLUTION_1080P = "1080p"
+    RESOLUTION_4K = "4k"
 
 
 class GenerationModelEnum(str, Enum):

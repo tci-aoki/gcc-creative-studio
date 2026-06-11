@@ -133,6 +133,7 @@
             *ngFor="let res of resolutions"
             mat-menu-item
             [ngClass]="{'menu-item-selected': searchRequest.resolution === res}"
+            [disabled]="res === '4k' && searchRequest.generationModel === 'veo-3.1-lite-generate-001'"
             (click)="selectResolution(res)"
           >
             <span>{{ res }}</span>

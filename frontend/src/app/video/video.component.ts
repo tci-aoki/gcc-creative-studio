@@ -158,7 +158,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
       {value: '9:16', viewValue: '9:16 \n Vertical', disabled: false},
     ];
   selectedAspectRatio = this.aspectRatioOptions[0].viewValue;
-  resolutions: ('720p' | '1080p')[] = ['720p', '1080p'];
+  resolutions: ('720p' | '1080p' | '4k')[] = ['720p', '1080p', '4k'];
   videoStyles = [
     'Cinematic',
     'Fantasy',
@@ -389,6 +389,14 @@ export class VideoComponent implements OnInit, AfterViewInit {
       this.aspectRatioOptions.forEach(opt => {
         opt.disabled = !supportedRatios.includes(opt.value);
       });
+
+      // Fallback from 4k if Lite model is selected
+      if (
+        model.value === 'veo-3.1-lite-generate-001' &&
+        this.searchRequest.resolution === '4k'
+      ) {
+        this.searchRequest.resolution = '1080p';
+      }
     }
   }
 
@@ -408,7 +416,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
     this.saveState();
   }
 
-  selectResolution(res: '720p' | '1080p'): void {
+  selectResolution(res: '720p' | '1080p' | '4k'): void {
     this.searchRequest.resolution = res;
   }
 

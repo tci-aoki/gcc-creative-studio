@@ -196,6 +196,16 @@ class CreateVeoDto(BaseDto):
                     "Reference images cannot be used at the same time as a start frame, end frame, or source video.",
                 )
 
+        if self.resolution == ResolutionEnum.RESOLUTION_4K:
+            if (
+                model != GenerationModelEnum.VEO_3_1_GENERATE_001
+                and model != GenerationModelEnum.VEO_3_1_FAST_GENERATE_001
+            ):
+                raise ValueError(
+                    f"4K resolution is only supported by the '{GenerationModelEnum.VEO_3_1_GENERATE_001.value}' "
+                    f"and '{GenerationModelEnum.VEO_3_1_FAST_GENERATE_001.value}' models."
+                )
+
         return self
 
     @field_validator("aspect_ratio")
