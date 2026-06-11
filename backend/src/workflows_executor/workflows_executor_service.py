@@ -429,7 +429,12 @@ class WorkflowsExecutorService:
             "start_image_asset_id": start_image_asset_id,
             "end_image_asset_id": end_image_asset_id,
             "number_of_media": 1,
+            "resolution": request.config.resolution,
+            "seed": request.config.seed,
         }
+
+        # Filter None values to let DTO defaults take over if needed
+        body = {k: v for k, v in body.items() if v is not None}
 
         headers = {"Authorization": authorization} if authorization else {}
 

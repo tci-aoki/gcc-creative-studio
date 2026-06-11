@@ -132,6 +132,10 @@ class CreateVeoDto(BaseDto):
         max_length=3,
         description="A list of reference images, each with an ID and a type (ASSET or STYLE).",
     )
+    seed: int | None = Field(
+        default=None,
+        description="Seed for random number generation.",
+    )
 
     @model_validator(mode="after")
     def validate_cross_fields(self) -> "CreateVeoDto":

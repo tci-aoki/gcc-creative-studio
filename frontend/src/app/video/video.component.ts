@@ -142,6 +142,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
     enhancePrompt: false,
     referenceImages: [],
     resolution: '720p',
+    seed: undefined,
   };
 
   // --- Negative Prompt Chips ---
@@ -291,6 +292,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
       negativePrompt: this.searchRequest.negativePrompt || '',
       useBrandGuidelines: this.searchRequest.useBrandGuidelines,
       enhancePrompt: this.searchRequest.enhancePrompt || false,
+      seed: this.searchRequest.seed,
       mode: this.currentMode,
     });
   }
@@ -310,6 +312,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
     this.searchRequest.negativePrompt = state.negativePrompt;
     this.searchRequest.useBrandGuidelines = state.useBrandGuidelines;
     this.searchRequest.enhancePrompt = state.enhancePrompt;
+    this.searchRequest.seed = state.seed;
     this.currentMode = state.mode || 'Text to Video';
 
     this.negativePhrases = state.negativePrompt

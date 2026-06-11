@@ -209,7 +209,16 @@ class GenerateVideoSettings(BaseModel):
     model: str
     brand_guidelines: bool
     aspect_ratio: str
+    resolution: str | None = "720p"
+    seed: int | None = None
     input_mode: str | None = None
+
+    @field_validator("seed", mode="before")
+    @classmethod
+    def empty_string_to_none(cls, v: Any) -> int | None:
+        if v == "":
+            return None
+        return v
 
 
 class GenerateVideoStep(BaseStep[GenerateVideoInputs, GenerateVideoSettings]):

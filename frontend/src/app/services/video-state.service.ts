@@ -31,6 +31,7 @@ export interface VideoState {
   negativePrompt: string;
   useBrandGuidelines: boolean;
   enhancePrompt: boolean;
+  seed?: number;
   mode: string;
 }
 
@@ -52,6 +53,7 @@ export class VideoStateService {
     negativePrompt: '',
     useBrandGuidelines: false,
     enhancePrompt: false,
+    seed: undefined,
     mode: 'Text to Video',
   };
 

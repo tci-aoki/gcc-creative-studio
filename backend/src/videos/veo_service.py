@@ -327,6 +327,7 @@ def _process_video_in_background(
                                     output_gcs_uri=gcs_output_directory,
                                     aspect_ratio=request_dto.aspect_ratio,
                                     resolution=request_dto.resolution.value,
+                                    seed=request_dto.seed,
                                     negative_prompt=request_dto.negative_prompt,
                                     generate_audio=request_dto.generate_audio,
                                     # TODO: Pass from dto the secs if extending video (4, 5, 6, 7)
@@ -757,6 +758,7 @@ class VeoService:
             composition=request_dto.composition,
             negative_prompt=request_dto.negative_prompt,
             duration_seconds=request_dto.duration_seconds,
+            seed=request_dto.seed,
             source_media_items=request_dto.source_media_items or None,
             source_assets=source_assets or None,
             gcs_uris=[],

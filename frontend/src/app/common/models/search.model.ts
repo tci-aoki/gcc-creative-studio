@@ -74,6 +74,7 @@ export type VeoRequest = {
   enhancePrompt?: boolean;
   referenceImages?: ReferenceImageDto[];
   resolution?: '720p' | '1080p' | '4k';
+  seed?: number;
 };
 
 export type SearchResponse = {
