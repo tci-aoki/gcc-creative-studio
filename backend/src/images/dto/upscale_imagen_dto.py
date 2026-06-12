@@ -25,7 +25,7 @@ class UpscaleImagenDto(BaseDto):
     """
 
     generation_model: GenerationModelEnum = Field(
-        default=GenerationModelEnum.IMAGEN_4_ULTRA,
+        default=GenerationModelEnum.IMAGEN_4_UPSCALE_PREVIEW,
         description="Model used for image generation.",
     )
     user_image: str = Field(
@@ -64,15 +64,10 @@ class UpscaleImagenDto(BaseDto):
         value: GenerationModelEnum,
     ) -> GenerationModelEnum:
         """Ensures that only supported generation models for imagen are used."""
-        valid_video_ratios = [
+        valid_models = [
             GenerationModelEnum.IMAGEN_4_UPSCALE_PREVIEW,
-            GenerationModelEnum.IMAGEGEN_002,
-            GenerationModelEnum.IMAGEGEN_005,
-            GenerationModelEnum.IMAGEGEN_006,
-            GenerationModelEnum.IMAGEN_3_001,
-            GenerationModelEnum.IMAGEN_3_002,
         ]
-        if value not in valid_video_ratios:
+        if value not in valid_models:
             raise ValueError("Invalid generation model for imagen.")
         return value
 

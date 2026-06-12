@@ -356,50 +356,32 @@ export class VideoComponent implements OnInit, AfterViewInit {
     this.searchRequest.generationModel = model.value;
     this.selectedGenerationModel = model.viewValue;
 
-    const isVeo2 =
-      model.value.includes('veo-2.0') && model.value !== 'veo-2.0-generate-exp';
-    const isVeo2Exp = model.value === 'veo-2.0-generate-exp';
+    this.clearOtherImage(1);
 
-    if (isVeo2) {
-      // Veo 2 models do not support audio.
-      this.isAudioGenerationDisabled = true;
-      this.searchRequest.generateAudio = false;
+    // Veo 3 models support audio.
+    this.isAudioGenerationDisabled = false;
+    this.searchRequest.generateAudio = true;
 
-      // Re-enable all aspect ratios for Veo 2.
-      this.aspectRatioOptions.forEach(opt => (opt.disabled = false));
-    } else if (isVeo2Exp) {
-      // Veo 2 Exp model does not support audio.
-      this.isAudioGenerationDisabled = true;
-      this.searchRequest.generateAudio = false;
-      this.aspectRatioOptions.forEach(opt => (opt.disabled = false));
-    } else {
-      this.clearOtherImage(1);
+    // Veo 3 only supports 16:9 and 9:16 aspect ratios.
+    const supportedRatios = ['16:9', '9:16'];
+    if (!supportedRatios.includes(this.searchRequest.aspectRatio)) {
+      this.searchRequest.aspectRatio = '16:9';
+      const landscapeOption = this.aspectRatioOptions.find(
+        opt => opt.value === '16:9',
+      )!;
+      this.selectedAspectRatio = landscapeOption.viewValue;
+    }
 
-      // Veo 3 models support audio.
-      this.isAudioGenerationDisabled = false;
-      this.searchRequest.generateAudio = true;
+    this.aspectRatioOptions.forEach(opt => {
+      opt.disabled = !supportedRatios.includes(opt.value);
+    });
 
-      // Veo 3 only supports 16:9 and 9:16 aspect ratios.
-      const supportedRatios = ['16:9', '9:16'];
-      if (!supportedRatios.includes(this.searchRequest.aspectRatio)) {
-        this.searchRequest.aspectRatio = '16:9';
-        const landscapeOption = this.aspectRatioOptions.find(
-          opt => opt.value === '16:9',
-        )!;
-        this.selectedAspectRatio = landscapeOption.viewValue;
-      }
-
-      this.aspectRatioOptions.forEach(opt => {
-        opt.disabled = !supportedRatios.includes(opt.value);
-      });
-
-      // Fallback from 4k if Lite model is selected
-      if (
-        model.value === 'veo-3.1-lite-generate-001' &&
-        this.searchRequest.resolution === '4k'
-      ) {
-        this.searchRequest.resolution = '1080p';
-      }
+    // Fallback from 4k if Lite model is selected
+    if (
+      model.value === 'veo-3.1-lite-generate-001' &&
+      this.searchRequest.resolution === '4k'
+    ) {
+      this.searchRequest.resolution = '1080p';
     }
   }
 
@@ -625,35 +607,6 @@ export class VideoComponent implements OnInit, AfterViewInit {
       return;
     }
     this.showErrorOverlay = true;
-
-    const hasSourceAssets = this.startImageAssetId || this.endImageAssetId;
-    const hasSourceMediaItems = this.sourceMediaItems.some(i => !!i);
-    const isVeo3 = [
-      'veo-3.0-fast-generate-001',
-      'veo-3.0-generate-001',
-    ].includes(this.searchRequest.generationModel);
-
-    if (
-      (hasSourceAssets || hasSourceMediaItems) &&
-      isVeo3 &&
-      !this.isExtensionMode &&
-      !this.isConcatenateMode
-    ) {
-      const veo31Model = this.generationModels.find(
-        m =>
-          m.value === 'veo-3.1-generate-001' ||
-          m.value === 'veo-3.1-lite-generate-001' ||
-          m.value === 'veo-3.1-fast-generate-001',
-      );
-      if (veo31Model) {
-        this.selectModel(veo31Model);
-        handleSuccessSnackbar(
-          this._snackBar,
-          "Veo 3 doesn't support images as input, so we've switched to Veo 3.1 for you.",
-        );
-        return;
-      }
-    }
 
     this.isLoading = true;
     this.videoDocuments = null;

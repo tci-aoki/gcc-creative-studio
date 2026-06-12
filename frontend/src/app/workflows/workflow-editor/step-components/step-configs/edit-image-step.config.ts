@@ -19,7 +19,6 @@ import {StepConfig} from '../generic-step/step.model';
 
 const model_options = MODEL_CONFIGS.filter(
   model =>
-    model.value === 'gemini-2.5-flash-image' ||
     model.value === 'gemini-3-pro-image-preview' ||
     model.value === 'gemini-3.1-flash-image-preview',
 ).map(model => ({
@@ -51,7 +50,7 @@ export const EDIT_IMAGE_STEP_CONFIG: StepConfig = {
       label: 'Model',
       type: 'select',
       options: model_options,
-      defaultValue: 'gemini-2.5-flash-image',
+      defaultValue: 'gemini-3.1-flash-image-preview',
     },
     {
       name: 'aspect_ratio',
