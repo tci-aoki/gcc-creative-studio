@@ -73,6 +73,7 @@ export class MediaDetailComponent implements OnDestroy {
       {label: 'Mime Type', value: this.mediaItem.mimeType, type: 'text'},
       {label: 'Aspect Ratio', value: this.mediaItem.aspectRatio, type: 'text'},
       {label: 'Resolution', value: this.mediaItem.resolution, type: 'text'},
+      {label: 'Seed', value: this.mediaItem.seed, type: 'text'},
     ];
 
     if (this.isIdentityExpanded) {
@@ -93,7 +94,6 @@ export class MediaDetailComponent implements OnDestroy {
         fields.push(
           {label: 'Voice', value: this.mediaItem.voiceName, type: 'text'},
           {label: 'Language', value: this.mediaItem.languageCode, type: 'text'},
-          {label: 'Seed', value: this.mediaItem.seed, type: 'text'},
           {label: 'Num Media', value: this.mediaItem.numMedia, type: 'text'},
           {
             label: 'Duration',
