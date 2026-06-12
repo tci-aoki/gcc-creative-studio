@@ -903,6 +903,8 @@ def _process_image_in_background(
                             "generation_time": generation_time,
                             "num_media": len(permanent_gcs_uris),
                             "grounding_metadata": grounding_metadata,
+                            "seed": request_dto.seed,
+                            "resolution": request_dto.resolution.value,
                             "source_assets": (
                                 [sa.model_dump() for sa in source_assets]
                                 if source_assets
@@ -1453,7 +1455,8 @@ class ImagenService:
             composition=request_dto.composition,
             negative_prompt=request_dto.negative_prompt,
             google_search=request_dto.google_search,
-            resolution=request_dto.resolution,
+            resolution=request_dto.resolution.value,
+            seed=request_dto.seed,
             gcs_uris=[],
         )
 

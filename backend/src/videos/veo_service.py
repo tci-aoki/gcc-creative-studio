@@ -460,6 +460,8 @@ def _process_video_in_background(
                             "thumbnail_uris": permanent_thumbnail_gcs_uris,
                             "generation_time": generation_time,
                             "num_media": len(permanent_gcs_uris),
+                            "seed": request_dto.seed,
+                            "resolution": request_dto.resolution.value,
                         }
                         await media_repo.update(media_item_id, update_data)
                         worker_logger.info(
@@ -758,6 +760,7 @@ class VeoService:
             composition=request_dto.composition,
             negative_prompt=request_dto.negative_prompt,
             duration_seconds=request_dto.duration_seconds,
+            resolution=request_dto.resolution.value,
             seed=request_dto.seed,
             source_media_items=request_dto.source_media_items or None,
             source_assets=source_assets or None,
