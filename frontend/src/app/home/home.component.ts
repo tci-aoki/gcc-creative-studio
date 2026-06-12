@@ -109,7 +109,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     useBrandGuidelines: false,
     enhancePrompt: false,
     googleSearch: false,
-    resolution: '4K',
+    resolution: '1K',
+    seed: undefined,
   };
 
   modes = [
@@ -219,11 +220,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       value: '8:1',
       viewValue: '8:1 \n Wide Ribbon',
       disabled: false,
-      icon: 'crop_16_9',
-    },
-  ];
-  selectedAspectRatio = this.aspectRatioOptions[0].viewValue;
-  imageStyles = [
+      icon: 'crop_21_9',
+      },
+      ];
+      selectedAspectRatio = this.aspectRatioOptions[0].viewValue;
+      resolutions: ('512' | '1K' | '2K' | '4K')[] = ['512', '1K', '2K', '4K'];
+      videoStyles = [
     'Cinematic',
     'Fantasy',
     'Modern',
@@ -406,10 +408,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchRequest.addWatermark = state.watermark;
       this.searchRequest.googleSearch = state.googleSearch;
       this.searchRequest.resolution = state.resolution as
-        | '4K'
+        | '512'
         | '1K'
         | '2K'
+        | '4K'
         | undefined;
+      this.searchRequest.seed = state.seed;
       this.searchRequest.style = state.style;
       this.searchRequest.colorAndTone = state.colorAndTone;
       this.searchRequest.numberOfMedia = state.numberOfMedia;
@@ -447,6 +451,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       watermark: this.searchRequest.addWatermark,
       googleSearch: this.searchRequest.googleSearch,
       resolution: this.searchRequest.resolution,
+      seed: this.searchRequest.seed,
       style: this.searchRequest.style || null,
       colorAndTone: this.searchRequest.colorAndTone || null,
       numberOfMedia: this.searchRequest.numberOfMedia,
@@ -468,10 +473,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchRequest.addWatermark = state.watermark;
     this.searchRequest.googleSearch = state.googleSearch;
     this.searchRequest.resolution = state.resolution as
-      | '4K'
+      | '512'
       | '1K'
       | '2K'
+      | '4K'
       | undefined;
+    this.searchRequest.seed = state.seed;
     this.searchRequest.style = state.style;
     this.searchRequest.colorAndTone = state.colorAndTone;
     this.searchRequest.numberOfMedia = state.numberOfMedia;
@@ -631,6 +638,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchRequest.googleSearch = false;
     }
 
+    // Fallback from 512 if Pro model is selected
+    if (
+      model.value === 'gemini-3-pro-image-preview' &&
+      this.searchRequest.resolution === '512'
+    ) {
+      this.searchRequest.resolution = '1K';
+    }
+
+    this.saveState();
+  }
+
+  selectResolution(res: '512' | '1K' | '2K' | '4K'): void {
+    this.searchRequest.resolution = res;
     this.saveState();
   }
 

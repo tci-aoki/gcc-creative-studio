@@ -74,8 +74,9 @@ export const MODEL_CONFIGS: GenerationModelConfig[] = [
         '4:1',
         '1:8',
         '8:1',
-      ], // All
+      ],
       supportsGoogleSearch: true,
+      supportsSeed: true,
     },
   },
   {
@@ -98,89 +99,9 @@ export const MODEL_CONFIGS: GenerationModelConfig[] = [
         '4:5',
         '5:4',
         '21:9',
-      ], // All
-      supportsGoogleSearch: true,
-    },
-  },
-  {
-    value: 'gemini-2.5-flash-image',
-    viewValue: 'Nano Banana',
-    type: 'IMAGE',
-    imageSrc: 'assets/images/banana-peel.png',
-    isImage: true,
-    capabilities: {
-      supportedModes: ['Text to Image', 'Ingredients to Image'],
-      maxReferenceImages: 2,
-      supportedAspectRatios: [
-        '1:1',
-        '16:9',
-        '9:16',
-        '3:4',
-        '4:3',
-        '2:3',
-        '3:2',
-        '4:5',
-        '5:4',
-        '21:9',
       ],
-    },
-  },
-  {
-    value: 'imagen-4.0-generate-001',
-    viewValue: 'Imagen 4 (deprecated)',
-    type: 'IMAGE',
-    icon: 'gemini-spark-icon',
-    isSvg: true,
-    capabilities: {
-      supportedModes: ['Text to Image'], // No ingredients support yet?
-      maxReferenceImages: 0,
-      supportedAspectRatios: ['1:1', '16:9', '9:16', '3:4', '4:3'],
-    },
-  },
-  {
-    value: 'imagen-4.0-ultra-generate-001',
-    viewValue: 'Imagen 4 Ultra (deprecated)',
-    type: 'IMAGE',
-    icon: 'gemini-spark-icon',
-    isSvg: true,
-    capabilities: {
-      supportedModes: ['Text to Image'],
-      maxReferenceImages: 0,
-      supportedAspectRatios: ['1:1', '16:9', '9:16', '3:4', '4:3'],
-    },
-  },
-  {
-    value: 'imagen-4.0-fast-generate-001',
-    viewValue: 'Imagen 4 Fast (deprecated)',
-    type: 'IMAGE',
-    icon: 'gemini-spark-icon',
-    isSvg: true,
-    capabilities: {
-      supportedModes: ['Text to Image'],
-      maxReferenceImages: 0,
-      supportedAspectRatios: ['1:1', '16:9', '9:16', '3:4', '4:3'],
-    },
-  },
-  {
-    value: 'imagen-3.0-generate-002',
-    viewValue: 'Imagen 3 (deprecated)',
-    type: 'IMAGE',
-    icon: 'auto_awesome',
-    capabilities: {
-      supportedModes: ['Text to Image', 'Ingredients to Image'],
-      maxReferenceImages: 2,
-      supportedAspectRatios: ['1:1', '16:9', '9:16', '3:4', '4:3'],
-    },
-  },
-  {
-    value: 'imagen-3.0-fast-generate-001',
-    viewValue: 'Imagen 3 Fast (deprecated)',
-    type: 'IMAGE',
-    icon: 'auto_awesome',
-    capabilities: {
-      supportedModes: ['Text to Image', 'Ingredients to Image'],
-      maxReferenceImages: 2,
-      supportedAspectRatios: ['1:1', '16:9', '9:16', '3:4', '4:3'],
+      supportsGoogleSearch: true,
+      supportsSeed: true,
     },
   },
   // --- Text Models ---

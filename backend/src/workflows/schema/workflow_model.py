@@ -171,6 +171,15 @@ class GenerateImageSettings(BaseModel):
     model: str
     brand_guidelines: bool
     aspect_ratio: str
+    resolution: str | None = "1k"
+    seed: int | None = None
+
+    @field_validator("seed", mode="before")
+    @classmethod
+    def empty_string_to_none(cls, v: Any) -> int | None:
+        if v == "":
+            return None
+        return v
 
 
 class GenerateImageStep(BaseStep[GenerateImageInputs, GenerateImageSettings]):
@@ -189,6 +198,15 @@ class EditImageSettings(BaseModel):
     model: str
     brand_guidelines: bool
     aspect_ratio: str
+    resolution: str | None = "1k"
+    seed: int | None = None
+
+    @field_validator("seed", mode="before")
+    @classmethod
+    def empty_string_to_none(cls, v: Any) -> int | None:
+        if v == "":
+            return None
+        return v
 
 
 class EditImageStep(BaseStep[EditImageInputs, EditImageSettings]):

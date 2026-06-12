@@ -44,8 +44,11 @@ class WildcardMimeTypeEnum(str, Enum):
 class ResolutionEnum(str, Enum):
     """Resolution of the video."""
 
+    RESOLUTION_512 = "512"
     RESOLUTION_720P = "720p"
     RESOLUTION_1080P = "1080p"
+    RESOLUTION_1K = "1k"
+    RESOLUTION_2K = "2k"
     RESOLUTION_4K = "4k"
 
 
@@ -54,27 +57,8 @@ class GenerationModelEnum(str, Enum):
 
     # Image-Specific Models
     IMAGEN_4_UPSCALE_PREVIEW = "imagen-4.0-upscale-preview"
-    IMAGEN_4_001 = "imagen-4.0-generate-001"
-    IMAGEN_4_ULTRA = "imagen-4.0-ultra-generate-001"
-    IMAGEN_4_ULTRA_PREVIEW = "imagen-4.0-ultra-generate-preview-06-06"
-    IMAGEN_4_FAST = "imagen-4.0-fast-generate-001"
-    IMAGEN_4_FAST_PREVIEW = "imagen-4.0-fast-generate-preview-06-06"
-    IMAGEN_3_001 = "imagen-3.0-generate-001"
-    IMAGEN_3_FAST = "imagen-3.0-fast-generate-001"
-    IMAGEN_3_002 = "imagen-3.0-generate-002"
-    IMAGEGEN_006 = "imagegeneration@006"
-    IMAGEGEN_005 = "imagegeneration@005"
-    IMAGEGEN_002 = "imagegeneration@002"
-    GEMINI_2_5_PRO = "gemini-2.5-pro"
-    GEMINI_2_5_FLASH = "gemini-2.5-flash"
-    GEMINI_2_5_FLASH_IMAGE_PREVIEW = "gemini-2.5-flash-image-preview"
-    GEMINI_2_5_FLASH_IMAGE = "gemini-2.5-flash-image"
     GEMINI_3_PRO_IMAGE_PREVIEW = "gemini-3-pro-image-preview"
     GEMINI_3_1_FLASH_IMAGE_PREVIEW = "gemini-3.1-flash-image-preview"
-    GEMINI_3_1_PRO_PREVIEW = "gemini-3.1-pro-preview"
-    GEMINI_3_FLASH_PREVIEW = "gemini-3-flash-preview"
-    GEMINI_3_1_FLASH_LITE = "gemini-3.1-flash-lite"
-    GEMINI_3_1_FLASH_LITE_PREVIEW = "gemini-3.1-flash-lite-preview"
     VTO = "virtual-try-on-001"
 
     # Video-Specific Models
@@ -96,8 +80,6 @@ class GenerationModelEnum(str, Enum):
     def is_gemini_image_model(self) -> bool:
         """Returns True if the model is a Gemini image generation model."""
         return self in [
-            GenerationModelEnum.GEMINI_2_5_FLASH_IMAGE_PREVIEW,
-            GenerationModelEnum.GEMINI_2_5_FLASH_IMAGE,
             GenerationModelEnum.GEMINI_3_PRO_IMAGE_PREVIEW,
             GenerationModelEnum.GEMINI_3_1_FLASH_IMAGE_PREVIEW,
         ]
@@ -105,10 +87,7 @@ class GenerationModelEnum(str, Enum):
     @property
     def valid_aspect_ratios(self) -> list["AspectRatioEnum"]:
         """Returns the valid aspect ratios for the model."""
-        if self in [
-            GenerationModelEnum.GEMINI_3_PRO_IMAGE_PREVIEW,
-            GenerationModelEnum.GEMINI_3_1_FLASH_IMAGE_PREVIEW,
-        ]:
+        if self.is_gemini_image_model:
             return [
                 AspectRatioEnum.RATIO_1_1,
                 AspectRatioEnum.RATIO_3_4,

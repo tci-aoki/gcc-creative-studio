@@ -25,7 +25,8 @@ export interface ImageState {
   lighting: string | null;
   watermark: boolean;
   googleSearch: boolean;
-  resolution: string;
+  resolution: string | undefined;
+  seed: number | undefined;
   style: string | null;
   colorAndTone: string | null;
   numberOfMedia: number;
@@ -44,10 +45,11 @@ export class ImageStateService {
     negativePrompt: '',
     aspectRatio: '1:1',
     model: 'gemini-3.1-flash-image-preview',
-    lighting: '',
+    lighting: null,
     watermark: false,
     googleSearch: false,
-    resolution: '4K',
+    resolution: '1K',
+    seed: undefined,
     style: null,
     colorAndTone: null,
     numberOfMedia: 4,

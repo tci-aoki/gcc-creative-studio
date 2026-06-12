@@ -406,6 +406,7 @@ def gemini_generate_image(
     aspect_ratio: str | None = None,
     google_search: bool = False,
     resolution: str | None = None,
+    seed: int | None = None,
 ) -> types.GeneratedImage | None:
     """Generates an image using the Gemini API for text-to-image or
     image-to-image.
@@ -454,6 +455,7 @@ def gemini_generate_image(
                 response_modalities=["Text", "Image"],
                 image_config=image_config,
                 tools=tools if tools else None,
+                seed=seed,
             )
             response: types.GenerateContentResponse = (
                 vertexai_client.models.generate_content(
@@ -673,7 +675,8 @@ def _process_image_in_background(
                                         bucket_name=gcs_service.bucket_name,
                                         aspect_ratio=request_dto.aspect_ratio,
                                         google_search=request_dto.google_search,
-                                        resolution=request_dto.resolution,
+                                        resolution=request_dto.resolution.value,
+                                        seed=request_dto.seed,
                                     )
                                     for _ in range(request_dto.number_of_media)
                                 ]
@@ -749,7 +752,8 @@ def _process_image_in_background(
                                     reference_images=reference_images_for_api,
                                     aspect_ratio=request_dto.aspect_ratio,
                                     google_search=request_dto.google_search,
-                                    resolution=request_dto.resolution,
+                                    resolution=request_dto.resolution.value,
+                                    seed=request_dto.seed,
                                 )
                                 for _ in range(request_dto.number_of_media)
                             ]

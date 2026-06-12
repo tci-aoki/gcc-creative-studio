@@ -32,7 +32,8 @@ export type ImagenRequest = {
   useBrandGuidelines: boolean;
   enhancePrompt?: boolean;
   googleSearch?: boolean;
-  resolution?: '1K' | '2K' | '4K';
+  resolution?: '512' | '1K' | '2K' | '4K';
+  seed?: number;
 };
 
 export type SourceMediaItemLink = {

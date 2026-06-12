@@ -306,7 +306,12 @@ class WorkflowsExecutorService:
             "aspect_ratio": request.config.aspect_ratio,
             "use_brand_guidelines": request.config.brand_guidelines,
             "number_of_media": 1,
+            "resolution": request.config.resolution,
+            "seed": request.config.seed,
         }
+
+        # Filter None values to let DTO defaults take over if needed
+        body = {k: v for k, v in body.items() if v is not None}
 
         headers = {"Authorization": authorization} if authorization else {}
 
@@ -355,7 +360,12 @@ class WorkflowsExecutorService:
             "number_of_media": 1,
             "source_media_items": media_items,
             "source_asset_ids": asset_ids,
+            "resolution": request.config.resolution,
+            "seed": request.config.seed,
         }
+
+        # Filter None values to let DTO defaults take over if needed
+        body = {k: v for k, v in body.items() if v is not None}
 
         headers = {"Authorization": authorization} if authorization else {}
 

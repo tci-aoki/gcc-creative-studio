@@ -24,6 +24,7 @@ from src.common.base_dto import (
     CompositionEnum,
     GenerationModelEnum,
     LightingEnum,
+    ResolutionEnum,
     StyleEnum,
 )
 from src.common.schema.media_item_model import SourceMediaItemLink
@@ -42,7 +43,7 @@ class CreateImagenDto(BaseDto):
         description="The ID of the workspace for this generation.",
     )
     generation_model: GenerationModelEnum = Field(
-        default=GenerationModelEnum.IMAGEN_4_ULTRA,
+        default=GenerationModelEnum.GEMINI_3_1_FLASH_IMAGE_PREVIEW,
         description="Model used for image generation.",
     )
     aspect_ratio: AspectRatioEnum = Field(
@@ -104,9 +105,13 @@ class CreateImagenDto(BaseDto):
         default=False,
         description="Whether to use Google Search for image generation.",
     )
-    resolution: Literal["1K", "2K", "4K"] = Field(
-        default="4K",
+    resolution: ResolutionEnum = Field(
+        default=ResolutionEnum.RESOLUTION_1K,
         description="Resolution of the generated image.",
+    )
+    seed: int | None = Field(
+        default=None,
+        description="Seed for random number generation.",
     )
 
     @field_validator("prompt")
@@ -122,18 +127,6 @@ class CreateImagenDto(BaseDto):
     ) -> GenerationModelEnum:
         """Ensures that only supported generation models for imagen are used."""
         valid_generation_models = [
-            GenerationModelEnum.IMAGEN_4_UPSCALE_PREVIEW,
-            GenerationModelEnum.IMAGEGEN_002,
-            GenerationModelEnum.IMAGEGEN_005,
-            GenerationModelEnum.IMAGEGEN_006,
-            GenerationModelEnum.IMAGEN_3_001,
-            GenerationModelEnum.IMAGEN_3_002,
-            GenerationModelEnum.IMAGEN_3_FAST,
-            GenerationModelEnum.IMAGEN_4_FAST,
-            GenerationModelEnum.IMAGEN_4_ULTRA,
-            GenerationModelEnum.IMAGEN_4_001,
-            GenerationModelEnum.GEMINI_2_5_FLASH_IMAGE_PREVIEW,
-            GenerationModelEnum.GEMINI_2_5_FLASH_IMAGE,
             GenerationModelEnum.GEMINI_3_PRO_IMAGE_PREVIEW,
             GenerationModelEnum.GEMINI_3_1_FLASH_IMAGE_PREVIEW,
         ]
@@ -173,16 +166,11 @@ class CreateImagenDto(BaseDto):
                 f"A maximum of {max_inputs} total inputs are allowed for model {model.value}.",
             )
 
-        # Imagen-specific editing validation
-        if not model.is_gemini_image_model:
-            allowed_editing_models = [
-                GenerationModelEnum.IMAGEN_3_FAST,
-                GenerationModelEnum.IMAGEN_3_002,
-            ]
-            if model not in allowed_editing_models:
+        if self.resolution == ResolutionEnum.RESOLUTION_512:
+            if model != GenerationModelEnum.GEMINI_3_1_FLASH_IMAGE_PREVIEW:
                 raise ValueError(
-                    f"Model '{model.value}' does not support image editing with Imagen. "
-                    "Please use 'imagen-3.0-fast-generate-001' or 'imagen-3.0-generate-002'.",
+                    "Resolution '512' is only supported by the "
+                    f"'{GenerationModelEnum.GEMINI_3_1_FLASH_IMAGE_PREVIEW.value}' model."
                 )
 
         return self
