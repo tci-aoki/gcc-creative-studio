@@ -37,7 +37,7 @@ export class AudioStateService {
     prompt: '',
     negativePrompt: '',
     seed: undefined,
-    sampleCount: 4,
+    sampleCount: 1,
     selectedLanguage: 'en-US',
     selectedVoice: 'Puck',
   };

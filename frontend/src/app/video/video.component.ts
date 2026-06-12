@@ -130,7 +130,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
     prompt: '',
     generationModel: 'veo-3.1-generate-001',
     aspectRatio: '16:9',
-    numberOfMedia: 4,
+    numberOfMedia: 1,
     style: null,
     lighting: null,
     colorAndTone: null,
@@ -733,7 +733,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
       prompt: '',
       generationModel: 'veo-3.0-generate-001',
       aspectRatio: '16:9',
-      numberOfMedia: 4,
+      numberOfMedia: 1,
       style: null,
       lighting: null,
       colorAndTone: null,
@@ -1491,7 +1491,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
   // Selected values
   selectedMode = signal<string>('Text to Video');
   selectedNewAspectRatio = signal<string>('Landscape (16:9)');
-  selectedOutputs = signal<number>(2);
+  selectedOutputs = signal<number>(1);
   selectedModel = signal<string>('Veo 3.1 - Fast');
   selectedPreset = signal<string>('');
 

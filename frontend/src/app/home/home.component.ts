@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     prompt: '',
     generationModel: 'gemini-3.1-flash-image-preview',
     aspectRatio: '1:1',
-    numberOfMedia: 4,
+    numberOfMedia: 1,
     style: null,
     lighting: null,
     colorAndTone: null,
@@ -729,7 +729,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectNumberOfImages(num: number): void {
     this.searchRequest.numberOfMedia === num
-      ? (this.searchRequest.numberOfMedia = 4)
+      ? (this.searchRequest.numberOfMedia = 1)
       : (this.searchRequest.numberOfMedia = num);
     this.saveState();
   }
@@ -873,7 +873,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       prompt: '',
       generationModel: 'gemini-3.1-flash-image-preview',
       aspectRatio: '1:1',
-      numberOfMedia: 4,
+      numberOfMedia: 1,
       style: null,
       lighting: null,
       colorAndTone: null,

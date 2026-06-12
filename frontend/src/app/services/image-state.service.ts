@@ -52,7 +52,7 @@ export class ImageStateService {
     seed: undefined,
     style: null,
     colorAndTone: null,
-    numberOfMedia: 4,
+    numberOfMedia: 1,
     composition: null,
     useBrandGuidelines: false,
     enhancePrompt: false,

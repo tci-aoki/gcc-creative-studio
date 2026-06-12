@@ -158,6 +158,11 @@
                     </mat-select>
                 </mat-form-field>
 
+                <mat-form-field appearance="outline" class="short-field" *ngIf="selectedModel === 'gemini-tts'">
+                    <mat-label>Seed</mat-label>
+                    <input matInput type="number" [(ngModel)]="seed">
+                </mat-form-field>
+
                 <mat-form-field appearance="outline" class="short-field">
                     <mat-label>Results</mat-label>
                     <mat-select [(ngModel)]="sampleCount">

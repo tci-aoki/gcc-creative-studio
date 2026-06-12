@@ -123,6 +123,7 @@ def _process_audio_in_background(
                                         config=types.GenerateContentConfig(
                                             response_modalities=["AUDIO"],
                                             audio_timestamp=False,
+                                            seed=request_dto.seed,
                                             speech_config=types.SpeechConfig(
                                                 voice_config=types.VoiceConfig(
                                                     prebuilt_voice_config=types.PrebuiltVoiceConfig(

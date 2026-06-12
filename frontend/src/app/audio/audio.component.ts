@@ -74,7 +74,7 @@ export class AudioComponent implements OnInit {
   prompt = '';
   negativePrompt = '';
   seed: number | undefined;
-  sampleCount = 4;
+  sampleCount = 1;
 
   // TTS & Chirp Specific Inputs
   selectedLanguage: LanguageEnum = LanguageEnum.EN_US;
@@ -286,7 +286,7 @@ export class AudioComponent implements OnInit {
       // Optional fields (backend ignores them if not relevant to the specific model)
       negativePrompt:
         this.selectedModel === 'lyria' ? this.negativePrompt : undefined,
-      seed: this.selectedModel === 'lyria' ? this.seed : undefined,
+      seed: this.selectedModel !== 'chirp' ? this.seed : undefined,
       sampleCount: this.sampleCount,
       languageCode:
         this.selectedModel !== 'lyria'

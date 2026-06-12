@@ -487,7 +487,7 @@ export class VtoComponent implements OnInit, AfterViewInit {
     }
 
     const payload: VtoRequest = {
-      numberOfMedia: 4, // Defaulting to 4 as per DTO
+      numberOfMedia: 1, // Defaulting to 1
       personImage: selectedModel.inputLink,
       workspaceId: workspaceId,
     };
