@@ -225,7 +225,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       ];
       selectedAspectRatio = this.aspectRatioOptions[0].viewValue;
       resolutions: ('512' | '1K' | '2K' | '4K')[] = ['512', '1K', '2K', '4K'];
-      videoStyles = [
+      imageStyles = [
     'Cinematic',
     'Fantasy',
     'Modern',
