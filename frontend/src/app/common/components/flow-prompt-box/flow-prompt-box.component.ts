@@ -55,7 +55,7 @@ export class FlowPromptBoxComponent {
   @Input() selectedGenerationModel = '';
   @Input() prompt = '';
   @Input() aspectRatio = '16:9';
-  @Input() outputs = 4;
+  @Input() outputs = 1;
   @Input() mode = 'Text to Video';
   @Input() aspectRatioOptions: {
     value: string;
